@@ -328,10 +328,10 @@ mark.hl{color:inherit;background:color-mix(in srgb, #D7FAA0 85%, transparent);pa
 .row3b img{aspect-ratio:600/1304;object-fit:cover;object-position:top}
 @media (max-width: 560px){ .row3b{gap:8px} }
 
-#recipes .rec{grid-template-columns:1fr;gap:28px}
-#recipes .rec .feat{grid-template-columns:repeat(3,minmax(0,1fr))}
-#recipes .row3b{gap:24px;padding-inline:4%}
-@media (max-width: 760px){ #recipes .rec .feat{grid-template-columns:1fr} #recipes .row3b{padding-inline:0;gap:10px} }
+.rec{grid-template-columns:1fr;gap:28px}
+.rec .feat{grid-template-columns:repeat(3,minmax(0,1fr))}
+.rec .row3b{gap:24px;padding-inline:4%}
+@media (max-width: 760px){ .rec .feat{grid-template-columns:1fr} .rec .row3b{padding-inline:0;gap:10px} }
 
 .showcase{margin-top:72px}
 .showcase img{aspect-ratio:16/9;object-fit:cover}
@@ -407,7 +407,7 @@ figcaption,.cap,.cap2,.ph figcaption,figcaption.mono,.cap.mono{font-family:'Manr
   </section>
 
   <dl class="facts">
-    <div><dt class="mono">My role</dt><dd>Impact page, integration, design system, title page</dd></div>
+    <div><dt class="mono">Role</dt><dd>Impact page, integration, design system, title page</dd></div>
     <div><dt class="mono">Credits</dt><dd>Team of 4</dd></div>
     <div><dt class="mono">Timeline</dt><dd>October 2026</dd></div>
     <div><dt class="mono">Tools</dt><dd>SwiftUI, Firebase, TheMealDB, Open Food Facts</dd></div>
@@ -422,38 +422,51 @@ figcaption,.cap,.cap2,.ph figcaption,figcaption.mono,.cap.mono{font-family:'Manr
     <div class="trk" aria-hidden="true"><i id="tocFill"></i></div>
     <ol>
       <li><a href="#problem"><span class="mono">01</span><span class="lb">Problem</span></a></li>
-      <li><a href="#pivot"><span class="mono">02</span><span class="lb">Pivot</span></a></li>
-      <li><a href="#today"><span class="mono">03</span><span class="lb">Today &amp; Impact</span></a></li>
-      <li><a href="#recipes"><span class="mono">04</span><span class="lb">Recipes</span></a></li>
-      <li><a href="#built"><span class="mono">05</span><span class="lb">How it works</span></a></li>
-      <li><a href="#part"><span class="mono">06</span><span class="lb">My part</span></a></li>
+      <li><a href="#insight"><span class="mono">02</span><span class="lb">Problem research</span></a></li>
+      <li><a href="#pivot"><span class="mono">03</span><span class="lb">Concept &amp; pivot</span></a></li>
+      <li><a href="#solution"><span class="mono">04</span><span class="lb">Solution</span></a></li>
+      <li><a href="#design"><span class="mono">05</span><span class="lb">Design system</span></a></li>
+      <li><a href="#built"><span class="mono">06</span><span class="lb">Under the hood</span></a></li>
+      <li><a href="#learned"><span class="mono">07</span><span class="lb">Takeaways</span></a></li>
     </ol>
     <a class="mono up" href="#top">↑ Top</a>
   </aside>
   <div class="secs">
 
+<style>
+.ufw{grid-column:1/-1;margin:8px 0 0}
+.ufw a{display:block;color:inherit}
+.ufs{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#fff}
+.ufs img{display:block;width:100%;height:auto;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.ufw a:hover img{transform:scale(1.015)}
+.ufw figcaption{margin-top:10px;font-size:13px;color:var(--muted);text-align:right}
+@media (max-width:760px){ .ufs{overflow-x:auto;-webkit-overflow-scrolling:touch} .ufs img{width:860px;max-width:none} .ufw a:hover img{transform:none} .ufw figcaption::after{content:" · swipe"} }
+.fh3{display:flex;align-items:baseline;gap:12px;margin:72px 0 20px;font-size:clamp(20px,1.8vw,24px);font-weight:500}
+.fh3 .mono{font-size:11px;color:var(--p-deep)}
+.body > .lead + .fh3{margin-top:40px}
+.body > .feat{margin-top:28px}
+</style>
   <section class="sec" id="problem">
     <div class="side"><span class="n mono">01</span><h2>The problem</h2></div>
     <div class="body">
-      <p class="lead">Food goes off at the back of the fridge because <mark class="hl">nobody sees it coming</mark>.</p>
-      <div class="row3 rv"><figure class="ph"><img src="img/s-on-track.webp" alt="Onboarding screen: a fridge with a carrot, a Freshling and a tomato, titled Track what's in your fridge." width="600" height="1304" loading="lazy"></figure><figure class="ph"><img src="img/s-on-hp.webp" alt="Onboarding screen: three Freshlings at 100, 50 and 20 HP, titled HP shows shelf life left." width="600" height="1304" loading="lazy"></figure><figure class="ph"><img src="img/s-on-use.webp" alt="Onboarding screen: a Freshling in a cooking pot beside a recipe card, titled Use what's expiring first." width="600" height="1304" loading="lazy"></figure></div>
-      <p class="cap2">Onboarding</p>
-      <p>We wanted expiry dates to feel urgent without making cooking feel like a chore. Adding food takes seconds: <span class="ul">type it</span>, <span class="ul">pick it from a built-in list</span> or <span class="ul">a recent purchase</span>, or <span class="ul">scan a barcode or a produce sticker</span>. The app suggests an expiry date and sends <span class="wv wv-o">a reminder at 9 AM</span> before it runs out.</p>
-      <div class="flow rv"><figure class="ph"><img src="img/s-fridge-empty.webp" alt="Empty Fridge screen with the mascot, Your fridge is empty, an Add Food button and Load Demo Food." width="600" height="1304" loading="lazy"><figcaption class="mono">Empty fridge</figcaption></figure><span class="arw" aria-hidden="true">→</span><figure class="ph"><img src="img/s-add-empty.webp" alt="Add Food screen with a food name field, Scan and Food List buttons, and category, amount, price and date fields." width="600" height="1304" loading="lazy"><figcaption class="mono">Add food</figcaption></figure><span class="arw" aria-hidden="true">→</span><figure class="ph"><img src="img/s-add-list.webp" alt="Add Food with the Food List open: Arugula, Asparagus, Baby Bok Choy and more, each with a little face icon." width="600" height="1304" loading="lazy"><figcaption class="mono">Pick from list</figcaption></figure><span class="arw" aria-hidden="true">→</span><figure class="ph hi"><img src="img/s-fridge.webp" alt="Fridge screen: 6 items on three shelves, Use first, This week and Fresh, each item with a dotted HP bar." width="600" height="1304" loading="lazy"><figcaption class="mono">Shelves by urgency</figcaption></figure></div>
-      <p>The Fridge tab sorts everything onto three shelves by urgency, Use first, This week and Fresh. The dots under each item are its HP.</p>
+      <p class="lead">Food goes off at the back of the fridge because <span class="ul">nobody sees it coming</span>.</p><p>Most food isn&rsquo;t thrown away because people don&rsquo;t care. It&rsquo;s forgotten: bought, pushed to the back, and found after it has gone off. The expiry date is printed on packaging nobody looks at twice.</p><ul class="feat rv"><li><span class="k">Cost</span><b>Money in the bin</b><span>Every forgotten item is groceries paid for and never eaten.</span></li><li><span class="k">Climate</span><b>Carbon for nothing</b><span>Growing, shipping and storing food has a carbon cost, wasted the moment it&rsquo;s thrown out.</span></li><li><span class="k">Habit</span><b>No sense of urgency</b><span>A date on a label doesn&rsquo;t tell you what to eat first tonight.</span></li></ul>
+    </div>
+  </section>
 
+  <section class="sec" id="insight">
+    <div class="side"><span class="n mono">02</span><h2>Problem research</h2></div>
+    <div class="body">
+      <p class="lead">We started from three assumptions about <span class="ul">why food gets wasted</span>, and built one feature for each.</p><ul class="feat rv"><li><span class="k">01 &rarr; Fridge</span><b>People forget what they bought</b><span>So the app keeps a fridge you can see, sorted by what runs out first.</span></li><li><span class="k">02 &rarr; HP</span><b>Expiry dates don&rsquo;t feel urgent</b><span>So shelf life becomes HP: a life bar that drains as the date gets closer.</span></li><li><span class="k">03 &rarr; Recipes</span><b>People don&rsquo;t know what to cook</b><span>So recipes start from whatever is about to expire.</span></li></ul>
     </div>
   </section>
 
   <section class="sec" id="pivot">
-    <div class="side"><span class="n mono">02</span><h2>From dungeon to fridge</h2></div>
+    <div class="side"><span class="n mono">03</span><h2>Concept &amp; pivot</h2></div>
     <div class="body">
-      <p class="lead">It started as a game called Fridge Dungeon. We kept the parts that made people come back.</p>
-      <div class="pivot">
+      <p class="lead">It started as a game called Fridge Dungeon. We kept the parts that made people come back.</p><div class="pivot">
         <div><span class="mono">Before · Fridge Dungeon</span><ul><li><del>Boss fights against expiring food</del></li><li><del>Battles and victory screens</del></li><li>A life bar for every item</li></ul></div>
         <div class="after"><span class="mono">After · Freshlings</span><ul><li>Each item shows the days it has left</li><li>Eat it and earn XP; level up to Freshness Hero</li><li>Streaks, money saved and CO₂ saved</li></ul></div>
-      </div>
-      <div class="xp rv">
+      </div><p>Full battles made the gameplay too complex for an app you open for a few seconds a day, so we dropped the fighting. Instead of losing the game layer entirely, we pointed it at the real goal: every item you rescue earns XP, food with two days or less left earns double, and a daily streak keeps you checking in.</p><div class="xp rv">
         <h3>How XP works</h3>
         <dl>
           <div><dt>+10 XP</dt><dd>Eat an item before it expires</dd></div>
@@ -462,17 +475,22 @@ figcaption,.cap,.cap2,.ph figcaption,figcaption.mono,.cap.mono{font-family:'Manr
           <div><dt>Lv 1 → 6</dt><dd>Level up from Sprout to Freshness Hero; a daily streak keeps you coming back</dd></div>
         </dl>
       </div>
-      <figure class="mock ds rv"><img src="img/user-flow.webp" alt="Freshlings user flow, Add it, use it, see the impact: open app, log in, onboarding, then Add Food, My Fridge, Today, Recipes and Impact, with a 9 AM expiry reminder leading to Today and a loop back to adding groceries." width="2000" height="980" loading="lazy"><figcaption>User flow</figcaption></figure>
-      <p>Full battles made the gameplay too complex for an app you open for a few seconds a day, so we dropped the fighting. Instead of losing the game layer entirely, we pointed it at the real goal: every item you rescue earns XP, food with two days or less left earns double, and a daily streak keeps you checking in.</p>
-      <figure class="mock rv"><img src="img/mock-hand.webp" alt="A hand holding an iPhone on a mint-to-yellow gradient, showing the Freshlings launch screen: the green mascot over an orange Freshlings wordmark." width="1600" height="1200" loading="lazy"></figure>
     </div>
+    <figure class="ufw rv"><a href="img/user-flow.webp" target="_blank" rel="noopener" aria-label="Open the user flow full size"><div class="ufs"><img src="img/user-flow.webp" alt="Freshlings user flow, Add it, use it, see the impact: open app, log in, onboarding, then Add Food, My Fridge, Today, Recipes and Impact, with a 9 AM expiry reminder leading to Today and a loop back to adding groceries." width="3318" height="1546" loading="lazy"></div></a><figcaption>User flow &middot; click to open full size</figcaption></figure>
   </section>
 
-  <section class="sec" id="today">
-    <div class="side"><span class="n mono">03</span><h2>Today &amp; Impact</h2></div>
+  <section class="sec" id="solution">
+    <div class="side"><span class="n mono">04</span><h2>Solution</h2></div>
     <div class="body">
-      <p class="lead">Today shows what to use first. Impact shows what you've saved.</p>
-      <div class="duo">
+      <p class="lead">One loop: <span class="ul">add it, use it first, see the impact</span>.</p><h3 class="fh3"><span class="mono">01</span>Meet the Freshlings</h3><div class="row3 rv"><figure class="ph"><img src="img/s-on-track.webp" alt="Onboarding screen: a fridge with a carrot, a Freshling and a tomato, titled Track what's in your fridge." width="600" height="1304" loading="lazy"></figure><figure class="ph"><img src="img/s-on-hp.webp" alt="Onboarding screen: three Freshlings at 100, 50 and 20 HP, titled HP shows shelf life left." width="600" height="1304" loading="lazy"></figure><figure class="ph"><img src="img/s-on-use.webp" alt="Onboarding screen: a Freshling in a cooking pot beside a recipe card, titled Use what's expiring first." width="600" height="1304" loading="lazy"></figure></div>
+      <p class="cap2">Onboarding</p><h3 class="fh3"><span class="mono">02</span>Add food in seconds</h3><p>We wanted expiry dates to feel urgent without making cooking feel like a chore. Adding food takes seconds: <span class="ul">type it</span>, <span class="ul">pick it from a built-in list</span> or <span class="ul">a recent purchase</span>, or <span class="ul">scan a barcode or a produce sticker</span>. The app suggests an expiry date and sends <span class="wv wv-o">a reminder at 9 AM</span> before it runs out.</p><div class="flow rv"><figure class="ph"><img src="img/s-fridge-empty.webp" alt="Empty Fridge screen with the mascot, Your fridge is empty, an Add Food button and Load Demo Food." width="600" height="1304" loading="lazy"><figcaption class="mono">Empty fridge</figcaption></figure><span class="arw" aria-hidden="true">→</span><figure class="ph"><img src="img/s-add-empty.webp" alt="Add Food screen with a food name field, Scan and Food List buttons, and category, amount, price and date fields." width="600" height="1304" loading="lazy"><figcaption class="mono">Add food</figcaption></figure><span class="arw" aria-hidden="true">→</span><figure class="ph"><img src="img/s-add-list.webp" alt="Add Food with the Food List open: Arugula, Asparagus, Baby Bok Choy and more, each with a little face icon." width="600" height="1304" loading="lazy"><figcaption class="mono">Pick from list</figcaption></figure><span class="arw" aria-hidden="true">→</span><figure class="ph hi"><img src="img/s-fridge.webp" alt="Fridge screen: 6 items on three shelves, Use first, This week and Fresh, each item with a dotted HP bar." width="600" height="1304" loading="lazy"><figcaption class="mono">Shelves by urgency</figcaption></figure></div><p>The Fridge tab sorts everything onto three shelves by urgency, Use first, This week and Fresh. The dots under each item are its HP.</p><h3 class="fh3"><span class="mono">03</span>Cook what&rsquo;s expiring</h3><div class="rec">
+        <ul class="feat">
+          <li><span class="k">01</span><b>Rescue recipes</b><span>Recommends dishes that use your most urgent ingredients first.</span></li>
+          <li><span class="k">02</span><b>I Cooked This</b><span>One tap takes the right quantities out of your fridge.</span></li>
+          <li><span class="k">03</span><b>My Recipes</b><span>Write and save your own, with a photo.</span></li>
+        </ul>
+        <div class="row3b"><figure class="ph"><img src="img/s-recipes-all.webp" alt="Recipes, Discover tab: 20 rescue recipes, each saying which expiring ingredient it rescues and what else it uses." width="600" height="1304" loading="lazy"><figcaption class="mono">Discover</figcaption></figure><figure class="ph"><img src="img/screen-recipe-detail-clean.webp" alt="Milk Pancakes recipe: ingredients already in the fridge are marked, with an I Cooked This plus 30 XP button." width="257" height="577" loading="lazy"><figcaption class="mono">Recipe detail</figcaption></figure><figure class="ph"><img src="img/s-recipes-tomato.webp" alt="Recipes filtered by Tomato: 11 rescue recipes such as Tomato and Egg Stir-Fry." width="600" height="1304" loading="lazy"><figcaption class="mono">Filtered by tomato</figcaption></figure></div>
+      </div><h3 class="fh3"><span class="mono">04</span>Use it first, see the impact</h3><p>Today shows what to use first. My Progress shows what you&rsquo;ve saved.</p><div class="duo">
         <figure>
           <div class="shot">
           <img class="scr-img" src="img/s-today.webp" alt="Today screen: level 6 Freshness Hero, a 9 day streak, $469 money saved, 521 kg CO2 saved, and a Use Soon list of chicken breast, milk, tomato, banana and eggs, each with an Ate it button and XP." width="600" height="1304" loading="lazy"></div>
@@ -485,32 +503,21 @@ figcaption,.cap,.cap2,.ph figcaption,figcaption.mono,.cap.mono{font-family:'Manr
           <h3>My Progress: what you've saved</h3>
           <p>Money and CO₂ saved, food rescued vs wasted, your streak, weekly or monthly goals, six-week charts and a full history.</p>
         </figure>
-      </div>
-      <p>Pick one of three goals on My Progress: <span class="ul">use more food</span> or <span class="ul">waste less</span>, which reset every Monday, or <span class="wv">save money</span>, which resets on the 1st of the month.</p>
-      <div class="row3b goals2 rv"><figure class="ph"><img src="img/s-today-lv1.webp" alt="Today on day one: Level 1 Sprout, 0 day streak, $0 and 0.0 kg CO2 saved." width="600" height="1304" loading="lazy"><figcaption class="mono">Day 1 · Level 1 Sprout</figcaption></figure><figure class="ph"><img src="img/s-today.webp" alt="Today after nine days: Level 6 Freshness Hero, 9 day streak, $469 and 521 kg CO2 saved." width="600" height="1304" loading="lazy"><figcaption class="mono">Day 9 · Level 6 Freshness Hero</figcaption></figure><figure class="ph"><img src="img/s-goal.webp" alt="Set a Goal sheet: Use more food, Waste less or Save money, with a target of 6 items per week." width="600" height="1304" loading="lazy"><figcaption class="mono">Set a Goal</figcaption></figure></div>
+      </div><p>Pick one of three goals on My Progress: <span class="ul">use more food</span> or <span class="ul">waste less</span>, which reset every Monday, or <span class="wv">save money</span>, which resets on the 1st of the month.</p><div class="row3b goals2 rv"><figure class="ph"><img src="img/s-today-lv1.webp" alt="Today on day one: Level 1 Sprout, 0 day streak, $0 and 0.0 kg CO2 saved." width="600" height="1304" loading="lazy"><figcaption class="mono">Day 1 · Level 1 Sprout</figcaption></figure><figure class="ph"><img src="img/s-today.webp" alt="Today after nine days: Level 6 Freshness Hero, 9 day streak, $469 and 521 kg CO2 saved." width="600" height="1304" loading="lazy"><figcaption class="mono">Day 9 · Level 6 Freshness Hero</figcaption></figure><figure class="ph"><img src="img/s-goal.webp" alt="Set a Goal sheet: Use more food, Waste less or Save money, with a target of 6 items per week." width="600" height="1304" loading="lazy"><figcaption class="mono">Set a Goal</figcaption></figure></div>
     </div>
   </section>
 
-  <section class="sec" id="recipes">
-    <div class="side"><span class="n mono">04</span><h2>Recipes</h2></div>
+  <section class="sec" id="design">
+    <div class="side"><span class="n mono">05</span><h2>Design system</h2></div>
     <div class="body">
-      <p class="lead">Cooking is how food gets rescued, so recipes start from your fridge.</p>
-      <div class="rec">
-        <ul class="feat">
-          <li><span class="k">01</span><b>Rescue recipes</b><span>Recommends dishes that use your most urgent ingredients first.</span></li>
-          <li><span class="k">02</span><b>I Cooked This</b><span>One tap takes the right quantities out of your fridge.</span></li>
-          <li><span class="k">03</span><b>My Recipes</b><span>Write and save your own, with a photo.</span></li>
-        </ul>
-        <div class="row3b"><figure class="ph"><img src="img/s-recipes-all.webp" alt="Recipes, Discover tab: 20 rescue recipes, each saying which expiring ingredient it rescues and what else it uses." width="600" height="1304" loading="lazy"><figcaption class="mono">Discover</figcaption></figure><figure class="ph"><img src="img/screen-recipe-detail-clean.webp" alt="Milk Pancakes recipe: ingredients already in the fridge are marked, with an I Cooked This plus 30 XP button." width="257" height="577" loading="lazy"><figcaption class="mono">Recipe detail</figcaption></figure><figure class="ph"><img src="img/s-recipes-tomato.webp" alt="Recipes filtered by Tomato: 11 rescue recipes such as Tomato and Egg Stir-Fry." width="600" height="1304" loading="lazy"><figcaption class="mono">Filtered by tomato</figcaption></figure></div>
-      </div>
+      <p class="lead">A green Freshling, an orange wordmark and <span class="wv">HP states from Fresh to Expired</span>, built as one system and used across every screen.</p><figure class="mock ds rv"><img src="img/design-system.webp" alt="The Freshlings design system: brand palette of leaf, sprout, citrus, lime, mint, bark and tomato with AA-contrast text colours and surfaces; Bagel Fat One and Anek Latin type scale; HP states from Fresh to Expired; buttons, stat cards, and 36 food Freshling icons plus 10 feature icons." width="2000" height="1125" loading="lazy"><figcaption>Freshlings design system</figcaption></figure><figure class="mock rv"><img src="img/mock-hand.webp" alt="A hand holding an iPhone on a mint-to-yellow gradient, showing the Freshlings launch screen: the green mascot over an orange Freshlings wordmark." width="1600" height="1200" loading="lazy"></figure>
     </div>
   </section>
 
   <section class="sec" id="built">
-    <div class="side"><span class="n mono">05</span><h2>How it works</h2></div>
+    <div class="side"><span class="n mono">06</span><h2>Under the hood</h2></div>
     <div class="body">
-      <p class="lead">Real data behind every number: shelf life, prices and <span class="wv">carbon per item</span>.</p>
-      <ul class="stack">
+      <p class="lead">Real data behind every number: shelf life, prices and <span class="wv">carbon per item</span>.</p><ul class="stack">
         <li><b>Firebase Authentication</b><span>Username and password login across devices</span></li>
         <li><b>175-ingredient dataset</b><span>Shelf life, typical price, storage tips and carbon per unit, from Poore &amp; Nemecek (2018) via Our World in Data</span></li>
         <li><b>TheMealDB API</b><span>Recipe recommendations and search, plus a built-in recipe book</span></li>
@@ -520,22 +527,11 @@ figcaption,.cap,.cap2,.ph figcaption,figcaption.mono,.cap.mono{font-family:'Manr
       </ul>
     </div>
   </section>
-  <section class="sec" id="part">
-    <div class="side"><span class="n mono">06</span><h2>My part</h2></div>
+
+  <section class="sec" id="learned">
+    <div class="side"><span class="n mono">07</span><h2>Takeaways</h2></div>
     <div class="body">
-      <p class="lead">I owned <b class="tc">Impact, integration and the design system</b>: the numbers, the look, and making four people's code run as one app.</p>
-      <div class="mine">
-        <div><b>Impact page</b><span>Money saved, CO₂ avoided (Poore &amp; Nemecek 2018), used vs wasted, three goal types.</span></div>
-        <div><b>Integration</b><span>Merged all four members' code and fixed the build errors, with help from Claude AI.</span></div>
-        <div><b>Design system</b><span>Created the Freshlings design system and applied it across the app.</span></div>
-        <div><b>Online recipes</b><span>TheMealDB with an offline fallback, categories, and a link from Today to Recipes.</span></div>
-        <div><b>HP &amp; partial use</b><span>Improved the HP calculation and partial use of stacked items.</span></div>
-        <div><b>Quick Add</b><span>Faster adding, and long fridge lists that condense.</span></div>
-        <div><b>First login flow</b><span>Local Keychain sign-up, later replaced by Firebase.</span></div>
-        <div><b>Illustration</b><span>The title page and the Recipes onboarding illustration.</span></div>
-        <div><b>Planning</b><span>Workflow map, function summary and the lo-fi prototype.</span></div>
-      </div>
-      <figure class="mock ds rv"><img src="img/design-system.webp" alt="The Freshlings design system: brand palette of leaf, sprout, citrus, lime, mint, bark and tomato with AA-contrast text colours and surfaces; Bagel Fat One and Anek Latin type scale; HP states from Fresh to Expired; buttons, stat cards, and 36 food Freshling icons plus 10 feature icons." width="2000" height="1125" loading="lazy"><figcaption>Freshlings design system</figcaption></figure>
+      <p class="lead">Cutting a feature is easier when you know <span class="ul">what it was there to do</span>.</p><ul class="feat rv"><li><span class="k">01</span><b>Keep the motivation, not the mechanic</b><span>Battles were fun to pitch but too much for an app you open for a few seconds. XP, double points and streaks kept the reason to come back.</span></li><li><span class="k">02</span><b>Numbers need a source</b><span>Money and CO₂ saved only mean something if they&rsquo;re real, so every item draws on a published dataset instead of a guess.</span></li><li><span class="k">03</span><b>Integration is design work</b><span>Merging four people&rsquo;s code was also merging four styles. A shared design system is what made it feel like one app.</span></li></ul>
     </div>
   </section>
 
